@@ -14,6 +14,7 @@ from oscar.core.loading import get_class, get_model
 from edx_rest_api_client.client import EdxRestApiClient
 from edx_rest_api_client.exceptions import SlumberHttpBaseException
 
+from ecommerce.core.url_utils import get_lms_url
 from ecommerce.core.views import StaffOnlyMixin
 from ecommerce.extensions.api import data as data_api
 from ecommerce.extensions.api.constants import APIConstants as AC
@@ -21,7 +22,6 @@ from ecommerce.extensions.api.data import get_lms_footer
 from ecommerce.extensions.basket.utils import prepare_basket
 from ecommerce.extensions.checkout.mixins import EdxOrderPlacementMixin
 from ecommerce.extensions.voucher.utils import get_voucher_discount_info
-from ecommerce.settings import get_lms_url
 
 
 Applicator = get_class('offer.utils', 'Applicator')

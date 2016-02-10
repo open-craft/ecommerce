@@ -1,9 +1,10 @@
 from __future__ import absolute_import
 
-from ecommerce.settings import get_lms_url
 from ecommerce.settings.base import *
 from ecommerce.settings.logger import get_logger_config
 
+
+SITE_ID = 1
 
 # TEST SETTINGS
 INSTALLED_APPS += (
@@ -44,21 +45,6 @@ DATABASES = {
 # END IN-MEMORY TEST DATABASE
 
 
-# URL CONFIGURATION
-ECOMMERCE_URL_ROOT = 'http://localhost:8002'
-
-LMS_URL_ROOT = 'http://127.0.0.1:8000'
-
-# The location of the LMS heartbeat page
-LMS_HEARTBEAT_URL = get_lms_url('/heartbeat')
-
-# The location of the LMS student dashboard
-LMS_DASHBOARD_URL = get_lms_url('/dashboard')
-
-COMMERCE_API_URL = get_lms_url('/api/commerce/v1/')
-# END URL CONFIGURATION
-
-
 # AUTHENTICATION
 ENABLE_AUTO_AUTH = True
 
@@ -74,8 +60,6 @@ PASSWORD_HASHERS = (
 
 
 # ORDER PROCESSING
-ENROLLMENT_API_URL = LMS_URL_ROOT + '/api/enrollment/v1/enrollment'
-
 EDX_API_KEY = 'replace-me'
 # END ORDER PROCESSING
 
@@ -89,17 +73,17 @@ PAYMENT_PROCESSOR_CONFIG = {
         'profile_id': 'fake-profile-id',
         'access_key': 'fake-access-key',
         'secret_key': 'fake-secret-key',
-        'payment_page_url': 'https://replace-me/',
-        'receipt_page_url': get_lms_url('/commerce/checkout/receipt/'),
-        'cancel_page_url': get_lms_url('/commerce/checkout/cancel/'),
+        'payment_page_url': 'https://testsecureacceptance.cybersource.com/pay',
+        'receipt_path': PAYMENT_PROCESSOR_RECEIPT_PATH,
+        'cancel_path': PAYMENT_PROCESSOR_CANCEL_PATH,
     },
     'paypal': {
         'mode': 'sandbox',
         'client_id': 'fake-client-id',
         'client_secret': 'fake-client-secret',
-        'receipt_url': get_lms_url('/commerce/checkout/receipt/'),
-        'cancel_url': get_lms_url('/commerce/checkout/cancel/'),
-        'error_url': get_lms_url('/commerce/checkout/error/'),
+        'receipt_path': PAYMENT_PROCESSOR_RECEIPT_PATH,
+        'cancel_path': PAYMENT_PROCESSOR_CANCEL_PATH,
+        'error_path': PAYMENT_PROCESSOR_ERROR_PATH,
     },
 }
 # END PAYMENT PROCESSING
