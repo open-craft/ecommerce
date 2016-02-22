@@ -117,9 +117,7 @@
         </div>
         <div class="row help">
             <p><b>{% trans "Have questions?" %}</b></p>
-            {% blocktrans with link_start='<a href="{{ support_url }}" target="_blank">' link_end='</a>' %}
-                Please read {{ link_start }}our FAQs to view common questions about our certificates.{{ link_end }}
-            {% endblocktrans %}
+            <a href="{{ homepage_url }}/verified-certificate">{% trans "Please read our FAQs to view common questions about our certificates." %}</a>
         </div>
     </div>
 {% else %}
