@@ -15,12 +15,29 @@ define([
               Utils) {
         'use strict';
 
-        var appendToForm = function (value, key, form) {
-            $('<input>').attr({
-                type: 'text',
-                name: key,
-                value: value
-            }).appendTo(form);
+        var createForm = function(data) {
+            var $form = $('<form />', {
+                class: 'hidden',
+                action: data.payment_page_url,
+                method: 'POST',
+                'accept-method': 'UTF-8'
+            });
+            return $form;
+        },
+        populateForm = function(data, $form){
+
+            for(var prop in data.payment_form_data){
+                if(typeof prop === 'string'){
+                    var $input = $('<input />').attr({
+                        type: 'text',
+                        name: prop,
+                        value: data.payment_form_data[prop]
+                    });
+                    $form.append($input);
+                }
+            }
+
+            return $form;
         },
         checkoutPayment = function(data) {
             $.ajax({
@@ -46,20 +63,20 @@ define([
                 _s.sprintf('<div class="error">%s</div>', message)
             );
         },
-        onSuccess = function (data) {
-            var $form = $('<form>', {
-                action: data.payment_page_url,
-                method: 'POST',
-                'accept-method': 'UTF-8'
-            });
-
-            _.each(data.payment_form_data, appendToForm($form));
-
+        submitForm = function($form){
             $form.submit();
+        },
+        onSuccess = function (data) {
+            var $form = createForm(data);
+            $form = populateForm(data, $form);
+            $('body').append($form);
+            submitForm($form);
         },
         onReady = function() {
             var $paymentButtons = $('.payment-buttons'),
                 basketId = $paymentButtons.data('basket-id');
+
+            window.onbeforeunload = function(){};
 
             $('#voucher_form_link a').on('click', function(event) {
                 event.preventDefault();
@@ -92,13 +109,15 @@ define([
         };
 
         return {
-            appendToForm: appendToForm,
+            createForm: createForm,
+            populateForm: populateForm,
             checkoutPayment: checkoutPayment,
             hideVoucherForm: hideVoucherForm,
             onSuccess: onSuccess,
             onFail: onFail,
             onReady: onReady,
             showVoucherForm: showVoucherForm,
+            submitForm: submitForm
         };
     }
 );

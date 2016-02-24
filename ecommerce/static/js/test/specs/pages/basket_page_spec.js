@@ -2,7 +2,7 @@ define([
         'jquery',
         'underscore',
         'pages/basket_page',
-        'utils/utils',
+        'utils/utils'
     ],
     function ($,
               _,
@@ -12,9 +12,11 @@ define([
 
         describe('Basket Page', function () {
             var data,
-                form;
+                form,
+                populated_form;
 
             beforeEach(function () {
+
                 $('<div id="voucher_form_container"><input id="id_code">' +
                     '<a id="voucher_form_cancel"></a></button></div>' +
                     '<div id="voucher_form_link"><a href=""></a></div>' +
@@ -33,11 +35,22 @@ define([
                     }
                 };
 
-                form = $('<form>', {
+                form = $('<form />', {
+                    class: 'hidden',
                     action: data.payment_page_url,
                     method: 'POST',
                     'accept-method': 'UTF-8'
                 });
+
+                populated_form = $('<form />', {
+                                        class: 'hidden',
+                                        action: data.payment_page_url,
+                                        method: 'POST',
+                                        'accept-method': 'UTF-8'
+                                    })
+                                    .append($('<input />').attr({ type: 'text', name: 'type', value: 'Dummy Type' }))
+                                    .append($('<input />').attr({ type: 'text', name: 'model', value: '500' }))
+                                    .append($('<input />').attr({ type: 'text', name: 'color', value: 'white' }));
             });
 
             afterEach(function () {
@@ -77,20 +90,23 @@ define([
                 });
             });
 
-            describe('appendToForm', function () {
-                it('should append input data to form', function () {
-                    _.each(data.payment_form_data, function(value, key) {
-                        BasketPage.appendToForm(value, key, form);
-                    });
-                    expect(form.children().length).toEqual(3);
+
+            describe('createForm', function () {
+                it('should create the form', function () {
+                    expect(BasketPage.createForm(data)).toEqual(form);
+                });
+            });
+
+            describe('populateForm', function () {
+                it('should populate the form', function () {
+                    expect(BasketPage.populateForm(data, form)).toEqual(populated_form);
                 });
             });
 
             describe('onSuccess', function () {
-                it('should fill form inputs for each data key/value pair', function () {
-                    spyOn(_, 'each');
+                it('should append the form to the body and submit it', function () {
                     BasketPage.onSuccess(data);
-                    expect(_.each.calls.count()).toEqual(1);
+                    expect($('form.hidden')[0]).toEqual(populated_form[0]);
                 });
             });
 
