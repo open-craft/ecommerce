@@ -75,6 +75,7 @@ class CouponViewSet(EdxOrderPlacementMixin, NonDestroyableModelViewSet):
             quantity = request.data[AC.KEYS.QUANTITY]
             price = request.data[AC.KEYS.PRICE]
             partner = request.site.siteconfiguration.partner
+            note = request.data.get('note', None)
 
             client, __ = Client.objects.get_or_create(username=client_username)
 
@@ -96,7 +97,8 @@ class CouponViewSet(EdxOrderPlacementMixin, NonDestroyableModelViewSet):
                 'code': code,
                 'quantity': quantity,
                 'start_date': start_date,
-                'voucher_type': voucher_type
+                'voucher_type': voucher_type,
+                'note': note,
             }
 
             coupon_product = self.create_coupon_product(title, price, data)
@@ -129,6 +131,7 @@ class CouponViewSet(EdxOrderPlacementMixin, NonDestroyableModelViewSet):
                 - quantity (int)
                 - start_date (Datetime)
                 - voucher_type (str)
+                - note (str)
 
         Returns:
             A coupon product object.
@@ -170,6 +173,7 @@ class CouponViewSet(EdxOrderPlacementMixin, NonDestroyableModelViewSet):
         coupon_vouchers = CouponVouchers.objects.get(coupon=coupon_product)
 
         coupon_product.attr.coupon_vouchers = coupon_vouchers
+        coupon_product.attr.note = data['note']
         coupon_product.save()
 
         sku = generate_sku(

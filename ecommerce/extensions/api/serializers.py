@@ -391,7 +391,7 @@ class CouponSerializer(ProductPaymentInfoMixin, serializers.ModelSerializer):
     last_edited = serializers.SerializerMethodField()
     seats = serializers.SerializerMethodField()
     client = serializers.SerializerMethodField()
-    vouchers = serializers.SerializerMethodField()
+    attribute_values = serializers.SerializerMethodField()
 
     def get_coupon_type(self, obj):
         voucher = obj.attr.coupon_vouchers.vouchers.first()
@@ -414,14 +414,17 @@ class CouponSerializer(ProductPaymentInfoMixin, serializers.ModelSerializer):
     def get_client(self, obj):
         return Basket.objects.filter(lines__product_id=obj.id).first().owner.username
 
-    def get_vouchers(self, obj):
-        vouchers = obj.attr.coupon_vouchers.vouchers.all()
-        serializer = VoucherSerializer(vouchers, many=True, context={'request': self.context['request']})
-        return serializer.data
+    def get_attribute_values(self, obj):
+        return ProductAttributeValueSerializer(
+            obj.attr,
+            many=True,
+            read_only=True,
+            context={'request': self.context.get('request')}
+        ).data
 
     class Meta(object):
         model = Product
-        fields = ('id', 'title', 'coupon_type', 'last_edited', 'seats', 'client', 'price', 'vouchers',)
+        fields = ('id', 'title', 'coupon_type', 'last_edited', 'seats', 'client', 'price', 'attribute_values',)
 
 
 class CheckoutSerializer(serializers.Serializer):  # pylint: disable=abstract-method
