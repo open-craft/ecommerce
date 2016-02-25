@@ -137,6 +137,7 @@ define([
 
             events: {
                 'input [name=course_id]': 'fillFromCourse',
+                
                 // catch value after autocomplete
                 'blur [name=course_id]': 'fillFromCourse',
                 'change [name=seat_type]': 'changeSeatType',
