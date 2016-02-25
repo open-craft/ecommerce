@@ -121,6 +121,10 @@
             }
         }
 
+        .enroll-button {
+            @include float(right);
+        }
+
         .payment-buttons {
             margin: 0 15px;
         }

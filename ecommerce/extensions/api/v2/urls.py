@@ -26,6 +26,7 @@ BASKET_URLS = [
         basket_views.OrderByBasketRetrieveView.as_view(),
         name='retrieve_order'
     ),
+    url(r'^enroll_student/', basket_views.BasketEnrollmentView.as_view(), name='enroll_student'),
 ]
 
 PAYMENT_URLS = [

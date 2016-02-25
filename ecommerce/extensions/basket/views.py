@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+
 from decimal import Decimal
 import hashlib
 import logging
@@ -90,6 +91,11 @@ class BasketSummaryView(BasketView):
                 line.discount_percentage = line.discount_value / line.unit_price_incl_tax * Decimal(100)
             else:
                 line.discount_percentage = 0
+
+        if context['order_total'].incl_tax == Decimal(0):
+            context.update({
+                'free_basket': True,
+            })
 
         context.update({
             'payment_processors': self.get_payment_processors(),

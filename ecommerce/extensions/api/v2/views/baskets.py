@@ -4,12 +4,15 @@ from __future__ import unicode_literals
 import logging
 import warnings
 
+from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from oscar.core.loading import get_class, get_model
 from rest_framework import status, generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from ecommerce.extensions.analytics.utils import audit_log
 from ecommerce.extensions.api import data as data_api, exceptions as api_exceptions
@@ -19,6 +22,7 @@ from ecommerce.extensions.api.serializers import OrderSerializer
 from ecommerce.extensions.checkout.mixins import EdxOrderPlacementMixin
 from ecommerce.extensions.payment import exceptions as payment_exceptions
 from ecommerce.extensions.payment.helpers import (get_default_processor_class, get_processor_class_by_name)
+from ecommerce.settings import get_lms_url
 
 Basket = get_model('basket', 'Basket')
 logger = logging.getLogger(__name__)
@@ -329,3 +333,39 @@ class BasketDestroyView(generics.DestroyAPIView):
     lookup_url_kwarg = 'basket_id'
     permission_classes = (IsAuthenticated, IsSuperUser,)
     queryset = Basket.objects.all()
+
+
+class BasketEnrollmentView(EdxOrderPlacementMixin, APIView):
+
+    @method_decorator(login_required)
+    def get(self, request):
+        basket_id = request.GET.get('basket_id', None)
+        if not basket_id:
+            # Error
+            pass
+
+        basket = Basket.objects.get(id=basket_id)
+        # Possible hack
+        basket.strategy = request.strategy
+        basket.freeze()
+        order_metadata = data_api.get_order_metadata(basket)
+
+        logger.info(
+            u"Preparing to place order [%s] for the contents of basket [%d]",
+            order_metadata[AC.KEYS.ORDER_NUMBER],
+            basket.id,
+        )
+
+        # Place an order. If order placement succeeds, the order is committed
+        # to the database so that it can be fulfilled asynchronously.
+        self.handle_order_placement(
+            order_number=order_metadata[AC.KEYS.ORDER_NUMBER],
+            user=basket.owner,
+            basket=basket,
+            shipping_address=None,
+            shipping_method=order_metadata[AC.KEYS.SHIPPING_METHOD],
+            shipping_charge=order_metadata[AC.KEYS.SHIPPING_CHARGE],
+            billing_address=None,
+            order_total=order_metadata[AC.KEYS.ORDER_TOTAL],
+        )
+        return HttpResponseRedirect(get_lms_url(''))
