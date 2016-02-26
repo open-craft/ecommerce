@@ -344,8 +344,10 @@ class BasketEnrollmentView(EdxOrderPlacementMixin, APIView):
             # Error
             pass
 
+        if basket.total_incl_tax != Decimal(0):
+            pass
+
         basket = Basket.objects.get(id=basket_id)
-        # Possible hack
         basket.strategy = request.strategy
         basket.freeze()
         order_metadata = data_api.get_order_metadata(basket)
