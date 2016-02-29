@@ -1,6 +1,7 @@
 """HTTP endpoints for interacting with baskets."""
 from __future__ import unicode_literals
 
+from decimal import Decimal
 import logging
 import warnings
 
@@ -24,6 +25,7 @@ from ecommerce.extensions.payment import exceptions as payment_exceptions
 from ecommerce.extensions.payment.helpers import (get_default_processor_class, get_processor_class_by_name)
 from ecommerce.settings import get_lms_url
 
+Applicator = get_class('offer.utils', 'Applicator')
 Basket = get_model('basket', 'Basket')
 logger = logging.getLogger(__name__)
 Order = get_model('order', 'Order')
@@ -339,16 +341,13 @@ class BasketEnrollmentView(EdxOrderPlacementMixin, APIView):
 
     @method_decorator(login_required)
     def get(self, request):
-        basket_id = request.GET.get('basket_id', None)
-        if not basket_id:
-            # Error
-            pass
+        basket = Basket.get_basket(request.user, request.site)
 
+        # Need to re-apply the voucher to the basket.
+        Applicator().apply(basket, request.user, request)
         if basket.total_incl_tax != Decimal(0):
-            pass
+            raise Exception("Basket is not free.")
 
-        basket = Basket.objects.get(id=basket_id)
-        basket.strategy = request.strategy
         basket.freeze()
         order_metadata = data_api.get_order_metadata(basket)
 
@@ -370,4 +369,8 @@ class BasketEnrollmentView(EdxOrderPlacementMixin, APIView):
             billing_address=None,
             order_total=order_metadata[AC.KEYS.ORDER_TOTAL],
         )
+
+        # Redirect the learner to his dashboard.
+        # Since the order fulfillment and enrollment happen asynchronously,
+        # the learner might not see the course she enrolled in right away.
         return HttpResponseRedirect(get_lms_url(''))
