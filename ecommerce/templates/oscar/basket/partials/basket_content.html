@@ -98,8 +98,9 @@
         <div class="row">
             <div class="payment-buttons col-sm-3" data-basket-id="{{ basket.id }}">
                 {% if free_basket %}
-                    <a href="{% url 'api:v2:baskets:enroll_student' %}">Enroll now!</a>
-                    <!-- <button class="btn btn-success enroll-button">{% trans "Redeem and Enroll" %}</button> -->
+                <form action="{% url 'checkout_app:free_checkout' %}" method="GET">
+                    <button type="submit" class="btn btn-success enroll-button">{% trans "Redeem and Enroll" %}</button>
+                </form>
                 {% else %}
                 {% for processor in payment_processors %}
                     <button class="btn btn-success payment-button" value="{{ processor.NAME|lower }}" id="{{ processor.NAME|lower }}">

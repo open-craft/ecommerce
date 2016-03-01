@@ -4,15 +4,13 @@ from decimal import Decimal
 import json
 
 import ddt
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.test import override_settings
-import httpretty
 import mock
 from oscar.core.loading import get_model
 from oscar.test import factories
-from oscar.test.factories import BasketFactory, ProductFactory
+from oscar.test.factories import BasketFactory
 from rest_framework.throttling import UserRateThrottle
 
 from ecommerce.extensions.api import exceptions as api_exceptions
@@ -285,40 +283,3 @@ class BasketDestroyViewTests(TestCase):
 
         self.assertEqual(response.status_code, 204)
         self.assertFalse(Basket.objects.filter(id=self.basket.id).exists())
-
-
-class BasketEnrollmentViewTests(TestCase):
-    path = reverse('api:v2:baskets:enroll_student')
-
-    def setUp(self):
-        super(BasketEnrollmentViewTests, self).setUp()
-        self.user = self.create_user()
-        self.client.login(username=self.user.username, password=self.password)
-
-    def test_no_basket_id(self):
-        """ Verify an exception is raised when no basket ID is passed. """
-        with self.assertRaises(Exception):
-            self.client.get(self.path)
-
-    def test_non_free_basket(self):
-        """ Verify an exception is raised when the basket is not free. """
-        product = ProductFactory()
-        basket = BasketFactory()
-        basket.add_product(product, 1)
-        self.assertNotEqual(basket.total_incl_tax, Decimal(0))
-
-        basket_path = '{}?basket_id={}'.format(self.path, basket.id)
-        with self.assertRaises(Exception):
-            self.client.get(basket_path)
-
-    @httpretty.activate
-    def test_basket_free(self):
-        """ Verify the user gets redirected and enrolled to the course. """
-        httpretty.register_uri(httpretty.GET, settings.LMS_URL_ROOT)
-        basket = BasketFactory()
-        product = ProductFactory(stockrecords__price_excl_tax=Decimal(0))
-        basket.add_product(product, 1)
-        self.assertEqual(basket.total_incl_tax, Decimal(0))
-        basket_path = '{}?basket_id={}'.format(self.path, basket.id)
-        response = self.client.get(basket_path)
-        self.assertEqual(response.status_code, 200)
