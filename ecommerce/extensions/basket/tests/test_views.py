@@ -202,10 +202,10 @@ class BasketSummaryViewTests(LmsApiMockMixin, TestCase):
         basket.add_product(seat_without_benefit, 1)
 
         response = self.client.get(self.path)
-        self.assertEqual(response.context['lines'][0].discount_percentage, 50)
+        self.assertEqual(response.context['lines'][0].benefit_value, '50%')
         self.assertEqual(response.context['lines'][0].has_discount, True)
 
-        self.assertEqual(response.context['lines'][1].discount_percentage, 0)
+        self.assertEqual(response.context['lines'][1].benefit_value, None)
         self.assertEqual(response.context['lines'][1].has_discount, False)
 
     def test_cached_course(self):
