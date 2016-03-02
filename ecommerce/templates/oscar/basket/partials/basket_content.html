@@ -98,7 +98,7 @@
         <div class="row">
             <div class="payment-buttons col-sm-3" data-basket-id="{{ basket.id }}">
                 {% if free_basket %}
-                <a href="{% url 'checkout_app:free_checkout' %}">
+                <a href="{% url 'checkout:free_checkout' %}">
                     <button type="submit" class="btn btn-success enroll-button">{% trans "Redeem and Enroll" %}</button>
                 </a>
                 {% else %}
