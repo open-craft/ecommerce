@@ -22,6 +22,7 @@ logger = logging.getLogger(__name__)
 class FreeCheckoutView(EdxOrderPlacementMixin, RedirectView):
 
     query_string = False
+    permanent = False
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
