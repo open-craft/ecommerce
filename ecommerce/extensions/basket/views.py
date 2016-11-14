@@ -257,7 +257,7 @@ class BasketSummaryView(BasketView):
                 # Get variables for the switch link that toggles from enrollment codes and seat.
                 switch_link_text, partner_sku = get_basket_switch_data(line.product)
 
-            if line.has_discount:
+            if line.has_discount and line.discount_value > 0:
                 benefit = self.request.basket.applied_offers().values()[0].benefit
                 benefit_value = format_benefit_value(benefit)
             else:
