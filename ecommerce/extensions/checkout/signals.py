@@ -1,9 +1,12 @@
 import logging
 
 import waffle
+from django.conf import settings
 from django.dispatch import receiver
 from oscar.core.loading import get_class
+from threadlocals import threadlocals
 
+from ecommerce.core.url_utils import get_lms_url
 from ecommerce.courses.utils import mode_for_seat
 from ecommerce.extensions.analytics.utils import silence_exceptions, track_segment_event
 from ecommerce.extensions.checkout.utils import get_credit_provider_details, get_receipt_page_url
@@ -55,6 +58,19 @@ def send_course_purchase_email(sender, order=None, **kwargs):  # pylint: disable
             product = order.lines.first().product
             credit_provider_id = getattr(product.attr, 'credit_provider', None)
             if not credit_provider_id:
+                send_notification(
+                    order.user,
+                    'CREDIT_RECEIPT',
+                    {
+                        'course_title': product.title,
+                        'receipt_page_url': get_lms_url(
+                            '{}?orderNum={}'.format(settings.RECEIPT_PAGE_PATH, order.number)
+                        ),
+                        'credit_hours': 1,
+                        'credit_provider': 'Credit provider',
+                    },
+                    threadlocals.get_current_request().site
+                )
                 logger.error(
                     'Failed to send credit receipt notification. Credit seat product [%s] has no provider.', product.id
                 )
