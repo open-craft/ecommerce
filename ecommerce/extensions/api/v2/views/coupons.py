@@ -92,6 +92,7 @@ class CouponViewSet(EdxOrderPlacementMixin, viewsets.ModelViewSet):
                         course_seat_types=cleaned_voucher_data['course_seat_types'],
                         email_domains=cleaned_voucher_data['email_domains'],
                         end_datetime=cleaned_voucher_data['end_datetime'],
+                        enterprise_customer=cleaned_voucher_data['enterprise_customer'],
                         max_uses=cleaned_voucher_data['max_uses'],
                         note=cleaned_voucher_data['note'],
                         partner=cleaned_voucher_data['partner'],
@@ -130,6 +131,7 @@ class CouponViewSet(EdxOrderPlacementMixin, viewsets.ModelViewSet):
         category_data = request.data.get('category')
         code = request.data.get('code')
         course_catalog_data = request.data.get('course_catalog')
+        enterprise_customer_data = request.data.get('enterprise_customer')
         course_seat_types = request.data.get('course_seat_types')
         max_uses = request.data.get('max_uses')
         partner = request.site.siteconfiguration.partner
@@ -160,6 +162,12 @@ class CouponViewSet(EdxOrderPlacementMixin, viewsets.ModelViewSet):
             course_catalog = course_catalog_data['id'] if course_catalog_data else None
         except (KeyError, TypeError):
             validation_message = 'Unexpected catalog data format received for coupon.'
+            raise ValidationError(validation_message, code=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            enterprise_customer = enterprise_customer_data['uuid'] if enterprise_customer_data else None
+        except (KeyError, TypeError):
+            validation_message = 'Unexpected EnterpriseCustomer data format received for coupon.'
             raise ValidationError(validation_message, code=status.HTTP_400_BAD_REQUEST)
 
         # Maximum number of uses can be set for each voucher type and disturb
@@ -205,6 +213,7 @@ class CouponViewSet(EdxOrderPlacementMixin, viewsets.ModelViewSet):
             'course_seat_types': course_seat_types,
             'email_domains': request.data.get('email_domains'),
             'end_datetime': request.data.get('end_datetime'),
+            'enterprise_customer': enterprise_customer,
             'max_uses': max_uses,
             'note': request.data.get('note'),
             'partner': partner,
@@ -288,6 +297,13 @@ class CouponViewSet(EdxOrderPlacementMixin, viewsets.ModelViewSet):
                 range_data['course_seat_types'] = None
             else:
                 range_data['course_catalog'] = None
+
+            enterprise_customer_data = request.data.get('enterprise_customer')
+            try:
+                range_data['enterprise_customer'] = enterprise_customer_data['uuid'] if enterprise_customer_data else None
+            except (KeyError, TypeError):
+                validation_message = 'Unexpected EnterpriseCustomer data format received for coupon.'
+                raise ValidationError(validation_message, code=status.HTTP_400_BAD_REQUEST)
 
             Range.objects.filter(id=voucher_range.id).update(**range_data)
 

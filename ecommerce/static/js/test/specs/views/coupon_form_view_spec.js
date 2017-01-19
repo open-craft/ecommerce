@@ -9,6 +9,7 @@ define([
         'test/mock_data/categories',
         'test/mock_data/coupons',
         'test/mock_data/catalogs',
+        'test/mock_data/enterprise_customers',
         'test/spec-utils',
         'ecommerce',
         'test/custom-matchers'
@@ -23,6 +24,7 @@ define([
               Mock_Categories,
               Mock_Coupons,
               Mock_Catalogs,
+              Mock_Customers,
               SpecUtils,
               ecommerce) {
         'use strict';
@@ -35,7 +37,8 @@ define([
             beforeEach(function () {
                 ecommerce.coupons = {
                     categories: Mock_Categories,
-                    catalogs: Mock_Catalogs
+                    catalogs: Mock_Catalogs,
+                    enterprise_customers: Mock_Customers,
                 };
                 model = new Coupon({course_catalog: Mock_Catalogs});
                 view = new CouponFormView({editing: false, model: model}).render();
@@ -188,7 +191,8 @@ define([
                     catalog.fetch();
                     ecommerce.coupons = {
                         categories: Mock_Categories,
-                        catalogs: new CatalogCollection(catalog)
+                        catalogs: new CatalogCollection(catalog),
+                        enterprise_customers: Mock_Customers,
                     };
                     var coupon_model = new Coupon({course_catalog: 123456});
                     new CouponFormView({ editing: true, model: coupon_model }).render();

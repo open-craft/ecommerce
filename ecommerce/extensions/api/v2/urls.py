@@ -17,7 +17,8 @@ from ecommerce.extensions.api.v2.views import (
     refunds as refund_views,
     siteconfiguration as siteconfiguration_views,
     stockrecords as stockrecords_views,
-    vouchers as voucher_views
+    vouchers as voucher_views,
+    enterprise as enterprise_views,
 )
 from ecommerce.extensions.voucher.views import CouponReportCSVView
 
@@ -70,6 +71,10 @@ PROVIDER_URLS = [
     url(r'^$', provider_views.ProviderViewSet.as_view(), name='list_providers')
 ]
 
+ENTERPRISE_URLS = [
+    url(r'^customers$', enterprise_views.EnterpriseCustomerViewSet.as_view(), name='enterprise_customers')
+]
+
 urlpatterns = [
     url(r'^baskets/', include(BASKET_URLS, namespace='baskets')),
     url(r'^checkout/$', include(CHECKOUT_URLS, namespace='checkout')),
@@ -78,6 +83,7 @@ urlpatterns = [
     url(r'^providers/', include(PROVIDER_URLS, namespace='providers')),
     url(r'^publication/', include(ATOMIC_PUBLICATION_URLS, namespace='publication')),
     url(r'^refunds/', include(REFUND_URLS, namespace='refunds')),
+    url(r'^enterprise/', include(ENTERPRISE_URLS, namespace='enterprise')),
 ]
 
 router = ExtendedSimpleRouter()

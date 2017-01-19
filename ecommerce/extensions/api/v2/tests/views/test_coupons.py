@@ -63,6 +63,9 @@ class CouponViewSetTest(CouponMixin, CourseCatalogTestMixin, TestCase):
             'benefit_value': 100,
             'catalog': self.catalog,
             'end_datetime': str(now() + datetime.timedelta(days=10)),
+            'enterprise_customer': {
+                'uuid': 'f6e9dbcb23df4432b1c81eb53365841d'
+            },
             'code': '',
             'quantity': 2,
             'start_datetime': str(now() - datetime.timedelta(days=1)),
@@ -163,6 +166,7 @@ class CouponViewSetTest(CouponMixin, CourseCatalogTestMixin, TestCase):
             'course_seat_types',
             'email_domains',
             'end_datetime',
+            'enterprise_customer',
             'max_uses',
             'note',
             'partner',
@@ -286,6 +290,9 @@ class CouponViewSetFunctionalTest(CouponMixin, CourseCatalogTestMixin, CourseCat
             'client': 'TeštX',
             'code': '',
             'end_datetime': str(now() + datetime.timedelta(days=10)),
+            'enterprise_customer': {
+                'uuid': 'f6e9dbcb23df4432b1c81eb53365841d',
+            },
             'price': 100,
             'quantity': 2,
             'start_datetime': str(now() - datetime.timedelta(days=10)),
@@ -356,6 +363,17 @@ class CouponViewSetFunctionalTest(CouponMixin, CourseCatalogTestMixin, CourseCat
         """
         self.data.update({
             'course_catalog': {'name': 'Invalid course catalog data dict without id key'},
+        })
+        response_data = self.client.post(COUPONS_LINK, json.dumps(self.data), 'application/json')
+        self.assertEqual(response_data.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create_coupon_with_invalid_enterprise_customer_data(self):
+        """
+        Test creating discount coupon with invalid enterprise customer returns bad
+        response.
+        """
+        self.data.update({
+            'enterprise_customer': {'name': 'Invalid Enterprise Customer data dict without uuid key'},
         })
         response_data = self.client.post(COUPONS_LINK, json.dumps(self.data), 'application/json')
         self.assertEqual(response_data.status_code, status.HTTP_400_BAD_REQUEST)
