@@ -64,7 +64,7 @@ class CouponViewSetTest(CouponMixin, CourseCatalogTestMixin, TestCase):
             'catalog': self.catalog,
             'end_datetime': str(now() + datetime.timedelta(days=10)),
             'enterprise_customer': {
-                'uuid': 'f6e9dbcb23df4432b1c81eb53365841d'
+                'id': 'f6e9dbcb23df4432b1c81eb53365841d'
             },
             'code': '',
             'quantity': 2,
@@ -291,7 +291,7 @@ class CouponViewSetFunctionalTest(CouponMixin, CourseCatalogTestMixin, CourseCat
             'code': '',
             'end_datetime': str(now() + datetime.timedelta(days=10)),
             'enterprise_customer': {
-                'uuid': 'f6e9dbcb23df4432b1c81eb53365841d',
+                'id': 'f6e9dbcb23df4432b1c81eb53365841d',
             },
             'price': 100,
             'quantity': 2,
@@ -373,7 +373,7 @@ class CouponViewSetFunctionalTest(CouponMixin, CourseCatalogTestMixin, CourseCat
         response.
         """
         self.data.update({
-            'enterprise_customer': {'name': 'Invalid Enterprise Customer data dict without uuid key'},
+            'enterprise_customer': {'name': 'Invalid Enterprise Customer data dict without id key'},
         })
         response_data = self.client.post(COUPONS_LINK, json.dumps(self.data), 'application/json')
         self.assertEqual(response_data.status_code, status.HTTP_400_BAD_REQUEST)

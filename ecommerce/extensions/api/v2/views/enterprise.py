@@ -1,9 +1,9 @@
 from edx_rest_api_client.client import EdxRestApiClient
 from rest_framework import generics
 from rest_framework.response import Response
-from rest_framework_extensions.decorators import action
 
 from ecommerce.courses.utils import traverse_pagination
+
 
 class EnterpriseCustomerViewSet(generics.ListAPIView):
 
