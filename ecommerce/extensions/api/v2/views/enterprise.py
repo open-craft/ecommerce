@@ -26,7 +26,7 @@ def get_enterprise_customers(site, token):
     return [
         {
             'name': each['name'],
-            'uuid': each['uuid'],
+            'id': each['uuid'],
         }
         for each in traverse_pagination(response, endpoint)
     ]

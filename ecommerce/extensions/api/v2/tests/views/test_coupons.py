@@ -125,6 +125,37 @@ class CouponViewSetTest(CouponMixin, CourseCatalogTestMixin, TestCase):
         )
 
     @ddt.data(
+        (Voucher.ONCE_PER_CUSTOMER, 2, 2),
+        (Voucher.SINGLE_USE, 2, None)
+    )
+    @ddt.unpack
+    def test_create_bad_enterprise_data(self, voucher_type, max_uses, expected_max_uses):
+        """Test the create method."""
+        title = 'Test coupon'
+        stock_record = self.seat.stockrecords.first()
+        self.coupon_data.update({
+            'title': title,
+            'client': 'Člient',
+            'stock_record_ids': [stock_record.id],
+            'voucher_type': voucher_type,
+            'price': 100,
+            'category': {'name': self.category.name},
+            'max_uses': max_uses,
+            'enterprise_customer': {'value': 'Truthy but wrong'}
+        })
+        request = RequestFactory()
+        request.user = self.user
+        request.data = self.coupon_data
+        request.site = self.site
+        request.COOKIES = {}
+
+        view = CouponViewSet()
+        view.request = request
+        response = view.create(request)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    @ddt.data(
         (Voucher.ONCE_PER_CUSTOMER, 2),
         (Voucher.SINGLE_USE, 2)
     )

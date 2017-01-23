@@ -251,9 +251,9 @@ define([
                         collection: function () {
                             return ecommerce.coupons.enterprise_customers;
                         },
-                        defaultOption: {uuid: '', name: ''},
+                        defaultOption: {id: '', name: ''},
                         labelPath: 'name',
-                        valuePath: 'uuid'
+                        valuePath: 'id'
                     },
                     setOptions: {
                         validate: true
