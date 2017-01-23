@@ -6,7 +6,7 @@ from ecommerce.tests.testcases import TestCase
 
 class TestEnterpriseCustomerView(TestCase):
 
-    @mock.patch('ecommerce.extensions.api.v2.enterprise.EdxRestApiClient')
+    @mock.patch('ecommerce.extensions.api.v2.views.enterprise.EdxRestApiClient')
     def test_get_customers(self, mock_client):
         instance = mock_client.return_value
         setattr(
