@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 
 from ecommerce.tests.testcases import TestCase
 
+
 class TestEnterpriseCustomerView(TestCase):
 
     @mock.patch('ecommerce.extensions.api.v2.views.enterprise.EdxRestApiClient')

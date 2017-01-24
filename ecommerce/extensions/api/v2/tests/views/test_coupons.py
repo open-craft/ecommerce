@@ -125,11 +125,11 @@ class CouponViewSetTest(CouponMixin, CourseCatalogTestMixin, TestCase):
         )
 
     @ddt.data(
-        (Voucher.ONCE_PER_CUSTOMER, 2, 2),
-        (Voucher.SINGLE_USE, 2, None)
+        (Voucher.ONCE_PER_CUSTOMER, 2),
+        (Voucher.SINGLE_USE, 2)
     )
     @ddt.unpack
-    def test_create_bad_enterprise_data(self, voucher_type, max_uses, expected_max_uses):
+    def test_create_bad_enterprise_data(self, voucher_type, max_uses):
         """Test the create method."""
         title = 'Test coupon'
         stock_record = self.seat.stockrecords.first()
