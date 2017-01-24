@@ -27,15 +27,23 @@ class TestEnterpriseCustomerView(TestCase):
                             }
                         ]
                     }
-                )  
+                )
             ),
         )
-        url = reverse('enterprise_customers')
+        url = reverse('api:v2:enterprise:enterprise_customers')
         result = self.client.get(url)
-        self.assertEqual(
-            result.json(),
+        self.assertEqual(result.status_code, 401)
+
+        user = self.create_user(is_staff=True)
+
+        self.client.login(username=user.username, password=self.password)
+
+        result = self.client.get(url)
+        self.assertEqual(result.status_code, 200)
+        self.assertJSONEqual(
+            result.content.decode('utf-8'),
             {
-                results: [
+                'results': [
                     {
                         'name': 'Starfleet Academy',
                         'id': '5113b17bf79f4b5081cf3be0009bc96f'

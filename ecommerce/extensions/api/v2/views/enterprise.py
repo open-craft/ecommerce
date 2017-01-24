@@ -1,11 +1,14 @@
 from edx_rest_api_client.client import EdxRestApiClient
-from rest_framework import generics
+from rest_framework import generics, status, viewsets
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from ecommerce.courses.utils import traverse_pagination
 
 
 class EnterpriseCustomerViewSet(generics.ListAPIView):
+
+    permission_classes = (IsAuthenticated, IsAdminUser,)
 
     def get_queryset(self):
         return []

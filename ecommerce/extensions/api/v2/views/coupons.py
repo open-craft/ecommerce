@@ -302,7 +302,7 @@ class CouponViewSet(EdxOrderPlacementMixin, viewsets.ModelViewSet):
             enterprise_customer_data = request.data.get('enterprise_customer')
             try:
                 if enterprise_customer_data:
-                    range_data['enterprise_customer'] = enterprise_customer_data['id']
+                    range_data['enterprise_customer'] = enterprise_customer_data.get('id')
                 else:
                     range_data['enterprise_customer'] = None
             except (KeyError, TypeError):
