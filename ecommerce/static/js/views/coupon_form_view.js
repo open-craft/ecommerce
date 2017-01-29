@@ -708,10 +708,10 @@ define([
                         catalogId = this.model.get('course_catalog');
                         this.model.set('course_catalog', ecommerce.coupons.catalogs.get(catalogId));
                     }
-
-                    if (this.model.get('enterprise_customer')) {
+                    if (_.isString(this.model.get('enterprise_customer'))) {
+                        // API returns a string value for enterprise customer
                         customerId = this.model.get('enterprise_customer');
-                        this.model.set('enterprise_customer', ecommerce.coupons.enterprise_customers.get(customerId));
+                        this.model.set('enterprise_customer', {'id': customerId});
                     }
 
                     this.disableNonEditableFields();

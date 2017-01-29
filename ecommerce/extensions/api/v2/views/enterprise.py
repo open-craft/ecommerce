@@ -6,12 +6,9 @@ from rest_framework.response import Response
 from ecommerce.courses.utils import traverse_pagination
 
 
-class EnterpriseCustomerViewSet(generics.ListAPIView):
+class EnterpriseCustomerViewSet(generics.APIView):
 
     permission_classes = (IsAuthenticated, IsAdminUser,)
-
-    def get_queryset(self):
-        return []
 
     def get(self, request):
         site = request.site

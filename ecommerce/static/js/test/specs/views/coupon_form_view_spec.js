@@ -200,6 +200,41 @@ define([
                 });
             });
 
+            describe('enterprise customers', function () {
+                it('enterprise customer dropdown should be hidden when a catalog is selected', function () {
+                    view.$('#single-course').prop('checked', true).trigger('change');
+                    expect(SpecUtils.formGroup(view, '[name=enterprise_customer]')).toBeVisible();
+
+                    view.$('#catalog').prop('checked', true).trigger('change');
+                    expect(SpecUtils.formGroup(view, '[name=enterprise_customer]')).not.toBeVisible();
+
+                    view.$('#multiple-courses').prop('checked', true).trigger('change');
+                    expect(SpecUtils.formGroup(view, '[name=enterprise_customer]')).toBeVisible();
+                });
+
+                it('enterprise customer is setting properly', function() {
+                    view.$('#single-course').prop('checked', true).trigger('change');
+
+                    view.$('[name=enterprise_customer]').val('29c466f1583b47279265d0a1fd7012a3').trigger('change');
+                    expect(view.$('select[name=enterprise_customer] option:selected').text()).toEqual(
+                        Mock_Customers[0].name
+                    );
+                    expect(view.$('[name=enterprise_customer]').val()).toEqual('29c466f1583b47279265d0a1fd7012a3');
+
+                    view.$('[name=enterprise_customer]').val('e7d4a3c6f510405d968e28e098ddb543').trigger('change');
+                    expect(view.$('select[name=enterprise_customer] option:selected').text()).toEqual(
+                        Mock_Customers[1].name
+                    );
+                    expect(view.$('[name=enterprise_customer]').val()).toEqual('e7d4a3c6f510405d968e28e098ddb543');
+
+                    view.$('[name=enterprise_customer]').val('42a30ade47834489a607cd0f52ba13cf').trigger('change');
+                    expect(view.$('select[name=enterprise_customer] option:selected').text()).toEqual(
+                        Mock_Customers[2].name
+                    );
+                    expect(view.$('[name=enterprise_customer]').val()).toEqual('42a30ade47834489a607cd0f52ba13cf');
+                });
+            });
+
             describe('discount code', function () {
                 var prepaid_invoice_fields = [
                     '[name=invoice_number]',

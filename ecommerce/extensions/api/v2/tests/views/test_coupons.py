@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import json
 import datetime
 from decimal import Decimal
+from uuid import uuid4
 
 import ddt
 import httpretty
@@ -63,9 +64,7 @@ class CouponViewSetTest(CouponMixin, CourseCatalogTestMixin, TestCase):
             'benefit_value': 100,
             'catalog': self.catalog,
             'end_datetime': str(now() + datetime.timedelta(days=10)),
-            'enterprise_customer': {
-                'id': 'f6e9dbcb23df4432b1c81eb53365841d'
-            },
+            'enterprise_customer': {'id': str(uuid4()).decode('utf-8')},
             'code': '',
             'quantity': 2,
             'start_datetime': str(now() - datetime.timedelta(days=1)),
@@ -321,9 +320,7 @@ class CouponViewSetFunctionalTest(CouponMixin, CourseCatalogTestMixin, CourseCat
             'client': 'TeštX',
             'code': '',
             'end_datetime': str(now() + datetime.timedelta(days=10)),
-            'enterprise_customer': {
-                'id': 'f6e9dbcb23df4432b1c81eb53365841d',
-            },
+            'enterprise_customer': {'id': str(uuid4()).decode('utf-8')},
             'price': 100,
             'quantity': 2,
             'start_datetime': str(now() - datetime.timedelta(days=10)),
@@ -489,6 +486,7 @@ class CouponViewSetFunctionalTest(CouponMixin, CourseCatalogTestMixin, CourseCat
         )
         self.assertEqual(details_response['code'], self.data['code'])
         self.assertEqual(details_response['coupon_type'], 'Discount code')
+        self.assertEqual(details_response['enterprise_customer'], self.data['enterprise_customer']['id'])
 
         list_response = self.client.get(COUPONS_LINK)
         coupon_data = json.loads(list_response.content)['results'][0]

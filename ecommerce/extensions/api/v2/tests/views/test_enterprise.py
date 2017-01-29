@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import mock
 
 from django.core.urlresolvers import reverse
@@ -7,6 +9,20 @@ from ecommerce.tests.testcases import TestCase
 
 class TestEnterpriseCustomerView(TestCase):
 
+    dummy_enterprise_customer_data = {
+        'results': [
+            {
+                'name': 'Starfleet Academy',
+                'uuid': '5113b17bf79f4b5081cf3be0009bc96f',
+                'hypothetical_private_info': 'seriously, very private',
+            },
+            {
+                'name': 'Millennium Falcon',
+                'uuid': 'd1fb990fa2784a52a44cca1118ed3993',
+            }
+        ]
+    }
+
     @mock.patch('ecommerce.extensions.api.v2.views.enterprise.EdxRestApiClient')
     def test_get_customers(self, mock_client):
         instance = mock_client.return_value
@@ -15,19 +31,7 @@ class TestEnterpriseCustomerView(TestCase):
             'enterprise-customer',
             mock.MagicMock(
                 get=mock.MagicMock(
-                    return_value={
-                        'results': [
-                            {
-                                'name': 'Starfleet Academy',
-                                'uuid': '5113b17bf79f4b5081cf3be0009bc96f',
-                                'hypothetical_private_info': 'seriously, very private',
-                            },
-                            {
-                                'name': 'Millennium Falcon',
-                                'uuid': 'd1fb990fa2784a52a44cca1118ed3993',
-                            }
-                        ]
-                    }
+                    return_value=self.dummy_enterprise_customer_data
                 )
             ),
         )

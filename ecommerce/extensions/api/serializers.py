@@ -599,6 +599,9 @@ class CouponSerializer(ProductPaymentInfoMixin, serializers.ModelSerializer):
         return retrieve_end_date(obj)
 
     def get_enterprise_customer(self, obj):
+        """
+        Get the Enterprise Customer UUID attached to a coupon.
+        """
         return retrieve_offer(obj).condition.range.enterprise_customer
 
     def get_last_edited(self, obj):

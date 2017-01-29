@@ -1,7 +1,7 @@
 define([
         'backbone.relational'
     ],
-    function() {
+    function () {
         'use strict';
 
         return Backbone.RelationalModel.extend({
