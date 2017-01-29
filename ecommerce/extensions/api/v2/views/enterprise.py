@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from ecommerce.courses.utils import traverse_pagination
 
 
-class EnterpriseCustomerViewSet(generics.APIView):
+class EnterpriseCustomerViewSet(generics.GenericAPIView):
 
     permission_classes = (IsAuthenticated, IsAdminUser,)
 

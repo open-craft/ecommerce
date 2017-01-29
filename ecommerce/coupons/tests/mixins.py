@@ -169,6 +169,7 @@ class CouponMixin(object):
             quantity (int): Number of vouchers to be created and associated with the coupon
             title(str): Title of the coupon
             voucher_type (str): Voucher type
+            enterprise_customer (str): Hex-encoded UUID for an Enterprise Customer object from the Enterprise app.
 
         Returns:
             coupon (Coupon)
