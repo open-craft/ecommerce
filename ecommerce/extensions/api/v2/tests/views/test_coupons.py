@@ -77,6 +77,17 @@ class CouponViewSetTest(CouponMixin, CourseCatalogTestMixin, TestCase):
             'email_domains': None,
         }
 
+    def build_request(self):
+        """
+        Build a request that contains the instance user, coupon data, site, and an empty set of cookies.
+        """
+        request = RequestFactory()
+        request.user = self.user
+        request.data = self.coupon_data
+        request.site = self.site
+        request.COOKIES = {}
+        return request
+
     def setup_site_configuration(self):
         site_configuration = SiteConfigurationFactory(partner__name='TestX')
         site = SiteFactory()
@@ -101,11 +112,7 @@ class CouponViewSetTest(CouponMixin, CourseCatalogTestMixin, TestCase):
             'category': {'name': self.category.name},
             'max_uses': max_uses,
         })
-        request = RequestFactory()
-        request.user = self.user
-        request.data = self.coupon_data
-        request.site = self.site
-        request.COOKIES = {}
+        request = self.build_request()
 
         view = CouponViewSet()
         view.request = request
@@ -142,11 +149,7 @@ class CouponViewSetTest(CouponMixin, CourseCatalogTestMixin, TestCase):
             'max_uses': max_uses,
             'enterprise_customer': {'value': 'Truthy but wrong'}
         })
-        request = RequestFactory()
-        request.user = self.user
-        request.data = self.coupon_data
-        request.site = self.site
-        request.COOKIES = {}
+        request = self.build_request()
 
         view = CouponViewSet()
         view.request = request
@@ -175,11 +178,7 @@ class CouponViewSetTest(CouponMixin, CourseCatalogTestMixin, TestCase):
             'category': {'name': self.category.name},
             'max_uses': max_uses,
         })
-        request = RequestFactory()
-        request.user = self.user
-        request.data = self.coupon_data
-        request.site = self.site
-        request.COOKIES = {}
+        request = self.build_request()
 
         view = CouponViewSet()
         view.request = request
