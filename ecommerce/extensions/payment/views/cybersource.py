@@ -287,6 +287,7 @@ class CybersourceNotificationMixin(EdxOrderPlacementMixin):
             order_total = OrderTotalCalculator().calculate(basket, shipping_charge)
             billing_address = self._get_billing_address(notification)
             user = basket.owner
+            user.cybersource_email = notification.get('req_bill_to_email')
             order_number = OrderNumberGenerator().order_number(basket)
 
             return self.handle_order_placement(
