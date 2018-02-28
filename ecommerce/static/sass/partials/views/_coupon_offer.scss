@@ -134,10 +134,11 @@
             .discount-multiple-courses {
                 margin-bottom: 15px;
 
-                .box-shadow {
-                    padding: 10px 0 0 0;
-                    box-shadow: 1px 1px 3px $offer-page-gray;
+                .offer-item {
+                   border: 1px solid #ddd;
+                   padding: 10px;
                 }
+
                 .img-responsive {
                     @media (min-width: $screen-sm-min) {
                         height: 150px;

@@ -13,28 +13,32 @@
 
 .navbar {
   margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
 
   // Remove default Bootstrap navbar border styling
   border: none;
   border-radius: 0;
 
+  border-bottom: 3px solid $crimson;
+
   // Add our own border
   .container {
     height: 95px;
-    padding: 10px 0;
-    border-bottom: $navbar-border-bottom-width solid palette(secondary, accent);
   }
 
   // Vertically center the logo
-  .navbar-brand {
+  > .container .navbar-brand {
+    padding: 0;
+    margin: 0;
+
     &:active,
     &:focus,
     &:hover {
       border: none;
-    }
-
-    .navbar-brand-logo {
-      @include center-vertically;
+      padding: 0;
+      margin: 0;
     }
 
     .navbar-brand-app {

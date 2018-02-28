@@ -1,0 +1,44 @@
+// HMS colors
+
+$white: #fff;
+$m-teal: rgb(0,166,156);
+$m-teal-d1: rgb(23,190,166);
+$m-teal-d2: $m-teal;
+$m-teal-d3: rgb(18,156,125);
+$m-teal-d4: rgb(10,115,75);
+
+$crimson: #A51C30;
+$ink: #1E1E1E;
+$mortar: #8C8179;
+$lightmortar: #c6c0bc;
+$grey: #767676;
+
+// FONTS
+$verdana: Verdana, Geneva, sans-serif;
+$georgia: Georgia, Cambria, "Times New Roman", Times, serif;
+$sans-serif: 'AvenirLTStd-Book', $verdana, sans-serif;
+$sans-serif-medium: 'AvenirLTStd-Medium', $verdana, sans-serif;
+$sans-serif-light: 'AvenirLTStd-Light', $verdana, sans-serif;
+$f-sans-serif: 'AvenirLTStd-Book', $verdana, sans-serif;
+$monospace: Monaco, 'Bitstream Vera Sans Mono', 'Lucida Console', monospace;
+$body-font-family: $sans-serif;
+$serif: $georgia;
+
+// FONT-WEIGHTS
+$font-light: 300;
+$font-regular: 400;
+$font-semibold: 600;
+$font-bold: 700;
+
+// ====================
+
+// MISC: base fonts/colors
+$body-font-size: em(14);
+$body-line-height: golden-ratio(.875em, 1);
+$base-font-color: rgb(60,60,60);
+$baseFontColor: rgb(60,60,60);
+$base-font-color: rgb(60,60,60);
+$lighter-base-font-color: rgb(100,100,100);
+$very-light-text: rgb(255,255,255); // #ffffff
+
+$lms-border-color: #c41731;

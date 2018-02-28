@@ -1,6 +1,6 @@
 // local variables
 // --------------------
-$brand-logo-width: 270px !default;
+$brand-logo-width: 370px !default;
 $brand-logo-height: 85px !default;
 $scaled-height: 85px !default;
 
@@ -10,8 +10,6 @@ $scaled-height: 85px !default;
 // overrides
 // --------------------
 .navbar-brand {
-    margin: 0 0 0 -15px;
-
     .navbar-brand-logo {
         @include brand-logo($brand-logo-width, $brand-logo-height, $scaled-height);
     }
