@@ -11,19 +11,19 @@ body {
     font-family: "AvenirLTStd-Book", sans-serif;
   }
   .btn-primary, .btn-success {
-    background-color: palette(secondary, accent);
-    border-color: palette(secondary, accent);
-    padding: spacing-vertical(small)/2 spacing-horizontal(base);
-    font-family: AvenirLTStd-Book, sans-serif;
-    font-size: 15px;
-    font-weight: normal;
-    line-height: 16px;
-    text-shadow: rgb(0, 57, 84) 0 1px 0;
-
-    &:active, &:active:focus, &:focus, &:hover {
-      background-color: palette(secondary, accent);
-      border-color: palette(secondary, accent);
-    }
+    display: inline-block;
+    background-color: $m-teal;
+    padding: 10px 16px;
+    color: #fff;
+    text-shadow: 0 1px 0 #003954;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: right;
+    font: 18px $sans-serif;
+    letter-spacing: 0;
+    text-align: center;
+    border: none;
   }
   .btn-default {
     padding: spacing-vertical(small)/2 spacing-horizontal(base);
