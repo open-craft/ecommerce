@@ -3,7 +3,6 @@ i.fa {
 }
 
 #error-message .container {
-  padding-top: $container-padding-top;
   padding-bottom: spacing-vertical(small);
 }
 
@@ -42,9 +41,20 @@ i.fa {
 }
 
 .account-activation-message {
+  
+  font-family: $sans-serif;
 
   .enrollment-message-container {
     margin-bottom: 30px;
+  }
+
+  hr {
+    border: 1px solid $mortar;
+  }
+
+  h1 {
+    font-size: 2rem;
+    color: $crimson;
   }
 
   h2 {
@@ -78,4 +88,13 @@ i.fa {
     font-weight: bold;
     margin: 0;
   }
+}
+
+
+// user dropdown menu
+.toolbar{
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+  @import '../components/user_dropdown';
 }
