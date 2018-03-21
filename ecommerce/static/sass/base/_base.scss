@@ -15,7 +15,6 @@ body {
     background-color: $m-teal;
     padding: 10px 16px;
     color: #fff;
-    text-shadow: 0 1px 0 #003954;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -24,6 +23,9 @@ body {
     letter-spacing: 0;
     text-align: center;
     border: none;
+    &:active, &:active:focus, &:focus, &:hover {
+      background-color: $m-teal-d1;
+    }
   }
   .btn-default {
     padding: spacing-vertical(small)/2 spacing-horizontal(base);
