@@ -12,7 +12,7 @@ from factory.fuzzy import FuzzyText
 from oscar.core.loading import get_class, get_model
 from oscar.test.factories import OrderFactory, OrderLineFactory, RangeFactory, VoucherFactory
 
-from ecommerce.core.url_utils import get_lms_url
+from ecommerce.core.url_utils import get_lms_url, get_lms_dashboard_url
 from ecommerce.coupons.tests.mixins import CouponMixin
 from ecommerce.coupons.views import voucher_is_valid
 from ecommerce.enterprise.tests.mixins import EnterpriseServiceMockMixin
@@ -431,7 +431,7 @@ class CouponRedeemViewTests(CouponMixin, CourseCatalogTestMixin, LmsApiMockMixin
         self.mock_account_api(self.request, self.user.username, data={'is_active': True})
         self.mock_access_token_response()
 
-        self.assert_redirects_to_receipt_page(code=code)
+        self.assert_redemption_page_redirects(get_lms_dashboard_url(), code=code)
 
     @httpretty.activate
     @mock.patch.object(EdxOrderPlacementMixin, 'place_free_order')
@@ -440,7 +440,7 @@ class CouponRedeemViewTests(CouponMixin, CourseCatalogTestMixin, LmsApiMockMixin
         code = self.create_coupon_and_get_code(benefit_value=100, code='')
         self.mock_account_api(self.request, self.user.username, data={'is_active': True})
         self.mock_access_token_response()
-        place_free_order.return_value = Exception
+        place_free_order.side_effect = Exception
 
         with mock.patch('ecommerce.coupons.views.logger.exception') as mock_logger:
             self.assert_redemption_page_redirects(
@@ -526,9 +526,10 @@ class CouponRedeemViewTests(CouponMixin, CourseCatalogTestMixin, LmsApiMockMixin
             ENTERPRISE_CUSTOMER
         )
 
-        self.assert_redirects_to_receipt_page(
+        self.assert_redemption_page_redirects(
+            get_lms_dashboard_url(),
             code=code,
-            consent_token=consent_token
+            consent_token=consent_token,
         )
         last_request = httpretty.last_request()
         self.assertEqual(last_request.path, '/api/enrollment/v1/enrollment')
@@ -562,7 +563,7 @@ class CouponRedeemViewTests(CouponMixin, CourseCatalogTestMixin, LmsApiMockMixin
         self.mock_account_api(self.request, self.user.username, data={'is_active': True})
         self.mock_access_token_response()
 
-        self.assert_redirects_to_receipt_page(code=code)
+        self.assert_redemption_page_redirects(get_lms_dashboard_url(), code=code)
 
     @httpretty.activate
     def test_already_enrolled_rejection(self):
