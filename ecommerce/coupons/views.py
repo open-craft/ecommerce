@@ -16,7 +16,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView, View
 from oscar.core.loading import get_class, get_model
 
-from ecommerce.core.url_utils import get_ecommerce_url
+from ecommerce.core.url_utils import get_lms_dashboard_url, get_ecommerce_url
 from ecommerce.core.views import StaffOnlyMixin
 from ecommerce.coupons.decorators import login_required_for_credit
 from ecommerce.enterprise.decorators import set_enterprise_cookie
@@ -238,7 +238,7 @@ class CouponRedeemView(EdxOrderPlacementMixin, View):
         if basket.total_excl_tax == 0:
             try:
                 order = self.place_free_order(basket)
-                return HttpResponseRedirect(get_receipt_page_url(site_configuration, order.number))
+                return HttpResponseRedirect(get_lms_dashboard_url())
             except:  # pylint: disable=bare-except
                 logger.exception('Failed to create a free order for basket [%d]', basket.id)
                 return HttpResponseRedirect(reverse('checkout:error'))
