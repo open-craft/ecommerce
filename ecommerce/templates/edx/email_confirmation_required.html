@@ -1,4 +1,5 @@
 {% extends 'edx/base.html' %}
+{% load staticfiles %}
 {% load i18n %}
 
 {% block title %}{% trans "Redeem" %}{% endblock %}
@@ -11,22 +12,51 @@
 {% block content %}
     <div id="error-message" class="account-activation-message">
         <div class="container">
+            <div class="toolbar">
+                <ol class="user">
+                    <li class="primary">
+                        <div role="group" aria-label="User menu">
+                            <button class="user-dropdown" aria-expanded="false">
+                                <a href="#" class="user-link">
+                                    {% trans "My Account" %} <span class="fa fa-sort-desc" aria-hidden="true"></span>
+                                    <span class="sr">More options dropdown</span>
+                                </a>
+                            </button>
+                            <ul class="user-dropdown-menu" aria-label="More Options" role="menu">
+                                <li class="dropdown-item item has-block-link"><a href="{{ lms_dashboard_url }}" class="action dropdown-menuitem">{% trans "Dashboard" %}</a></li>
+                                <li class="dropdown-item item has-block-link"><a href="{{ lms_base_url }}/account/settings" class="action dropdown-menuitem">{% trans "Settings" %}</a></li>
+                                <li class="dropdown-item item has-block-link"><a href="{{ lms_base_url }}/logout" role="menuitem" class="action dropdown-menuitem">{% trans "Sign Out" %}</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ol>
+            </div>
             <div class="enrollment-message-container">
-                <h2 class="enrollment-message">
-                  {% trans "You are enrolling in: " %}
-                  <span class="course-title">{{ course_name }}</span>
-                </h2>
+                <h1 class="enrollment-message">
+                    You are not done yet! You must follow these steps to complete
+                    your account registration and your course enrollment. 
+                </h1>
+                <hr>
             </div>
             <div class="instruction">
-                <p class="instruction-info">
-                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                    {% blocktrans %}An email has been sent to {{ user_email }} with a link for you to activate your account.{% endblocktrans %}
-                </p>
-              <h3 class="activate">{% trans "Why activate?" %}</h3>
-              <div class="activate-info">
-                  {% trans "We ask you to activate your account to ensure it is really you creating the account and to prevent fraud." %}
-              <div>
+                <ol class="instruction-steps">
+                    <li>
+                        Confirm your account email address. Go to your email to find an account 
+                        activation email. Follow the link in that email to activate your account.
+                    </li>
+                    <li>
+                        After you have activated your account, refresh this page to continue course
+                        enrollment, or re-open the original course enrollment link sent to you by 
+                        HMX.
+                    </li>
+                </ol>
+                If your need assistance, contact 
+                <a href="mailto:onlinelearning@hms.harvard.edu">onlinelearning@hms.harvard.edu</a>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/apps/email_confirm.js' %}"></script>
 {% endblock %}
