@@ -165,9 +165,7 @@
                     margin: 0;
                 }
                 .voucher-valid-until {
-                    position: absolute;
                     width: 100%;
-                    bottom: 0;
                     background-color: $gray-transparent;
                     padding: 7px;
                     text-align: center;
@@ -186,7 +184,7 @@
                 .course-new-price {
                     text-align: center;
                     font-weight: bold;
-                    color: $offer-page-price-teal;
+                    color: $brand-primary-accent;
                 }
                 .course-start {
                     margin-bottom: 10px;
@@ -198,17 +196,16 @@
                     height: 35px;
                     padding: 5px 5px 0;
                     text-align: center;
-                    background-color: $offer-page-price-blue;
-                    color: $offer-page-white;
-                    position: absolute;
-                    top: 10px;
-                    text-shadow: 0 1px 1px $dark-blue-shadow;
+                    color: $brand-primary-accent;
                     text-transform: uppercase;
                     font-size: 1.25em;
+                    font-weight: bold;
                     line-height: 1.2;
                 }
                 .image-container {
-                    position: relative;
+                    display: flex;
+                    flex-direction: column-reverse;
+                    height: 150px;
                 }
             }
         }
