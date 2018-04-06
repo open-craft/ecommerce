@@ -208,7 +208,7 @@
             #basket_totals {
                 @include text-align(right);
 
-                color: #00a69c;
+                color: palette(secondary, accent);
                 font-size: 18px;
                 font-weight: bold;
             }
@@ -228,15 +228,13 @@
 
         .payment-buttons {
             .payment-button {
-                border-color: palette(secondary, accent);
+                border-color: #00a69c;
                 padding: spacing-vertical(small)/2 spacing-horizontal(base);
-                background: palette(secondary, accent);
-                color: #fcfcfc;
+                background: #00a69c;
+                color: #fff;
                 font-family: AvenirLTStd-Book, sans-serif;
-                font-size: 15px;
+                font-size: 18px;
                 font-weight: normal;
-                line-height: 16px;
-                text-shadow: rgb(0, 57, 84) 0 1px 0;
             }
         }
 
