@@ -31,7 +31,9 @@
                         <div class="col-md-5 col-sm-12">
                             <p class="product-title">{{ line_data.product_title }} {% if line_data.course_key %}- {{ line_data.course_key.org }}
                                  {% endif %}</p>
-                            <p class="product-description">{{ line_data.product_description }}</p>
+                            {% if line_data.product_description %}
+                                <p class="product-description">{{ line_data.product_description }}</p>
+                            {% endif %}
                         </div>
                         {% if line_data.enrollment_code %}
                             <div class="col-md-1 col-xs-12">
