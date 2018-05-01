@@ -185,7 +185,7 @@ class BasketSingleItemViewTests(CouponMixin, CourseCatalogTestMixin, CourseCatal
         basket.add_product(product, 1)
         create_order(user=self.user, basket=basket)
         url = '{path}?sku={sku}'.format(path=self.path, sku=sku)
-        expected_content = 'You have already purchased {course} seat.'.format(course=product.course.name)
+        expected_content = 'You have already purchased {course} seat'.format(course=product.course.name)
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['error'], expected_content)

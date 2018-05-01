@@ -34,6 +34,9 @@
         .billing-address {
             margin-top: 35px;
             margin-bottom: 35px;
+            font-family: $sans-serif;
+            font-size: 16px;
+            color: $grey;
         }
     }
 
@@ -118,12 +121,19 @@
     }
 
     .confirm-message {
-        font-size: 18px;
+        font-size: 16px;
+        font-family: $sans-serif;
+        color: $grey;
+        a {
+            color: $crimson;
+        }
     }
 
     h2 {
         margin-bottom: 10px;
-        color: rgb(0, 121, 188);
+        color: $crimson;
+        font-family: $sans-serif;
+        font-size: 26px;
     }
 
     p {
@@ -131,7 +141,13 @@
     }
 
     .thank-you {
-        font-size: 38px;
+        font-family: $sans-serif;
+        color: $crimson;
+        font-size: 30px;
+        font-weight: lighter;
+        border-bottom: 2px solid $mortar;
+        margin-bottom: 20px;
+        margin-top: 30px;
     }
 
     .price {
@@ -144,6 +160,9 @@
 
     #dashboard-link {
         margin: 20px;
+        margin-left: 50%;
+        left: 0;
+        position: absolute;
         text-align: center;
         padding-bottom: 3em;
 
@@ -153,26 +172,25 @@
         }
     }
 
-    .dashboard-link {
-        line-height: 20px;
-        font-size: 13px;
-    }
-
     .order-summary {
         dt {
             font-weight: 500;
+            font-family: $sans-serif;
         }
 
         dd {
             margin-bottom: 20px;
-            color: rgb(29, 29, 29);
+            color: $grey;
             font-size: 18px;
+            font-family: $sans-serif;
         }
     }
 
     .order-headers {
-        color: rgb(0, 121, 188);
-        font-size: 22px;
+        margin-top: 50px;
+        color: $crimson;
+        font-size: 26px;
+        font-family: $sans-serif;
     }
 
     .order-line-data {
@@ -267,6 +285,7 @@
             background-color: rgb(249, 249, 249);
 
             dt {
+                font-family: $sans-serif;
                 border-bottom: 2px solid rgb(235, 235, 235);
 
                 font-size: 16px;
@@ -291,6 +310,7 @@
             }
 
             dd {
+                font-family: $sans-serif;
                 font-size: 16px;
 
                 &:nth-child(2) {
@@ -309,6 +329,7 @@
 
         .order-total {
             margin-left: 50%;
+            font-family: $sans-serif;
 
             padding: 20px 0;
 
@@ -330,6 +351,10 @@
 
                 .discount {
                     line-height: 1.5em;
+                }
+                .discount-label {
+                    font-family: $sans-serif;
+                    color: $crimson;
                 }
             }
 

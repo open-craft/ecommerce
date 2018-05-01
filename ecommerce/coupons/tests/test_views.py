@@ -573,7 +573,7 @@ class CouponRedeemViewTests(CouponMixin, CourseCatalogTestMixin, LmsApiMockMixin
         self.create_coupon_and_get_code()
         with mock.patch.object(UserAlreadyPlacedOrder, 'user_already_placed_order', return_value=True):
             response = self.client.get(self.redeem_url_with_params())
-            msg = 'You have already purchased {course} seat.'.format(course=self.course.name)
+            msg = 'You have already purchased {course} seat'.format(course=self.course.name)
             self.assertEqual(response.context['error'], msg)
 
     @httpretty.activate

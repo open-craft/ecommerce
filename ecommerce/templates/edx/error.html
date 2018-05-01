@@ -11,9 +11,11 @@
 {% block content %}
     <div id="error-message">
         <div class="container">
-            <div class="depth depth-2 message-error-content">
+            <div class="message-error-content">
                 <h3>{{ error }}</h3>
-                {% trans "If you need assistance, contact onlinelearning@hms.harvard.edu." %}
+                {% filter urlize %}
+                  {% blocktrans %}If you need assistance, contact onlinelearning@hms.harvard.edu.{% endblocktrans %}
+                {% endfilter %}
             </div>
         </div>
     </div>

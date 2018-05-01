@@ -232,7 +232,7 @@ class CouponRedeemView(EdxOrderPlacementMixin, View):
         try:
             basket = prepare_basket(request, [product], voucher)
         except AlreadyPlacedOrderException:
-            msg = _('You have already purchased {course} seat.').format(course=product.course.name)
+            msg = _('You have already purchased {course} seat').format(course=product.course.name)
             return render(request, template_name, {'error': msg})
 
         if basket.total_excl_tax == 0:
