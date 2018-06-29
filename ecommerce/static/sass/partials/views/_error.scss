@@ -55,11 +55,13 @@ i.fa {
 }
 
 .account-activation-message {
-  
-  font-family: $sans-serif;
+  .enrollment-message-container *, .instruction * {
+    font-family: $sans-serif;
+  }
 
-  .enrollment-message-container {
-    margin-bottom: 30px;
+  .enrollment-message {
+    margin-bottom: 20px;
+    border-bottom: 2px solid $mortar;
   }
 
   hr {
@@ -82,7 +84,12 @@ i.fa {
   }
 
   .instruction {
+    font-family: $sans-serif;
     padding-bottom: 3em;
+
+    a {
+      color: $m-teal;
+    }
   }
 
   .instruction-info {
