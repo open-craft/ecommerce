@@ -21,6 +21,8 @@
                 <div class="offer-item col-xs-12">
                     <div class="col-sm-3">
                         <div class="image-container">
+                            <img class="img-responsive" src="<%= course.attributes.image_url %>"
+                                 alt="<%= course.attributes.title %>"/>
                             <div class="voucher-valid-until">
                                 <p><%- gettext('Discount valid until') %></p>
                                 <p><%= course.attributes.voucher_end_date %></p>
@@ -30,8 +32,6 @@
                                     <span><%- gettext('off') %></span></p>
                                 </div>
                             <% } %>
-                            <img class="img-responsive" src="<%= course.attributes.image_url %>"
-                                 alt="<%= course.attributes.title %>"/>
                         </div>
                     </div>
                     <div class="col-sm-9 col-xs-12">
