@@ -56,6 +56,10 @@
             <dl>
               <dt>{% trans "Order Number:" %}</dt>
               <dd>{{ order.number }}</dd>
+              {% if payment_method %}
+                <dt>{% trans "Payment Method:" %}</dt>
+                <dd>{{ payment_method }}</dd>
+              {% endif %}
               <dt>{% trans "Order Date:" %}</dt>
               <dd>{{ order.date_placed|date:"E d, Y" }}</dd>
             </dl>
@@ -96,7 +100,7 @@
               {% for discount in discounts %}
                 <div class="order-total">
                   <div class="description">
-                    <span class="discount-label">{% trans "Discount" %}</span>
+                    <span class="label label-success">{% trans "Discount" %}</span>
 
                     {% if discount.voucher_code %}
                       {% with voucher=discount.voucher %}
@@ -149,11 +153,18 @@
           </div>
         {% endif %}
       </div>
-      <div id="dashboard-link">
-        <a class="dashboard-link btn btn-success" href="{{ lms_dashboard_url }}">
-          {% trans "Go to Dashboard" %}
-        </a>
-      </div>
+
+      {% if verification_url and not user_verified %}
+        <div class="nav-wizard row">
+            {% include 'oscar/checkout/_verification_data.html' %}
+        </div>
+      {% else %}
+        <div id="dashboard-link">
+          <a class="dashboard-link nav-link" href="{{ lms_dashboard_url }}">
+            {% trans "Go to Dashboard" %}
+          </a>
+        </div>
+      {% endif %}
     </div>
   </div>
 {% endblock content %}
