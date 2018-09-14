@@ -8,9 +8,6 @@ $fa-font-path: "/static/bower_components/fontawesome/fonts";
 // UX Pattern Library font directory
 $font-path: '/static/bower_components/edx-ux-pattern-library/_src/pattern-library/fonts';
 
-// Alternate font directory
-$alternate-font-path: '/static/fonts';
-
 // Use asset paths relative to Bootstrap SASS files.
 $bootstrap-sass-asset-helper: true;
 
@@ -29,7 +26,7 @@ $font-family-monospace: 'Bitstream Vera Sans Mono', Consolas, Courier, monospace
 // navbar
 $navbar-default-bg: white;
 $navbar-height: 74px;
-$navbar-border-bottom-width: 3px;
+$navbar-border-bottom-width: 4px;
 
 // Footer
 $footer-bg: $body-bg;
@@ -46,7 +43,6 @@ $gray-transparent: rgba(255, 255, 255, 0.5);
 $offer-page-blue: #0075b4;
 $offer-page-light-grey: #b1b2b4;
 $offer-page-price-blue: #0ea6ec;
-$offer-page-price-teal: #00a69c;
 $offer-page-white: white;
 $offer-page-gray: gray;
 $dark-blue-shadow: rgba(12, 87, 126, 0.75);
@@ -62,21 +58,3 @@ $input-addon-width: 40px;
 $coupon-grid-item-height: 75px;
 
 $container-padding-top: 60px;
-
-// Change primary color
-$brand-primary-accent: rgb(196, 23, 49);
-$brand-secondary-accent: rgb(165, 28, 48);
-// Change primary and secondary color
-$brand-primary-accent: rgb(196, 23, 49);    // #C41731 - Harvard red
-$brand-secondary-accent: rgb(165, 28, 48);  // #A51C30 - darker red
-
-// Add new font families
-@font-face {
-  font-family: "AvenirLTStd-Book";
-  font-style: normal;
-  font-weight: 300;
-  src: url("#{$alternate-font-path}/webfonts/2E4AF2_0_0.eot") format("eot"),
-       url("#{$alternate-font-path}/webfonts/2E4AF2_0_0.woff2") format("woff2"),
-       url("#{$alternate-font-path}/webfonts/2E4AF2_0_0.woff") format("woff"),
-       url("#{$alternate-font-path}/webfonts/2E4AF2_0_0.ttf") format("ttf");
-}

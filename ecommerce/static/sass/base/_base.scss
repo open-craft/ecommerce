@@ -5,36 +5,6 @@ html {
   font-size: 16px;
 }
 
-body {
-  background-color: white;
-  p {
-    font-family: "AvenirLTStd-Book", sans-serif;
-  }
-  .btn-primary, .btn-success {
-    display: inline-block;
-    background-color: $m-teal;
-    padding: 10px 16px;
-    color: #fff;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    float: right;
-    font: 18px $sans-serif;
-    letter-spacing: 0;
-    text-align: center;
-    border: none;
-    &:active, &:active:focus, &:focus, &:hover {
-      background-color: $m-teal-d1;
-    }
-  }
-  .btn-default {
-    padding: spacing-vertical(small)/2 spacing-horizontal(base);
-    font-family: AvenirLTStd-Book, sans-serif;
-    font-size: 15px;
-    line-height: 16px;
-  }
-}
-
 a {
   &:hover,
   &:focus {
@@ -61,22 +31,6 @@ a {
     + li:before {
       content: "#{$breadcrumb-separator} ";
     }
-  }
-}
-
-.message-error {
-  border-top: 4px solid #B20610;
-  h3 {
-    margin-bottom: 10px;
-    font-family: "AvenirLTStd-Book", sans-serif;
-    font-weight: bold;
-  }
-  ol {
-    margin-bottom: 0;
-    font-family: "AvenirLTStd-Book", sans-serif;
-  }
-  p {
-    margin-bottom: 0;
   }
 }
 

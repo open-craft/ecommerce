@@ -3,7 +3,6 @@
 @import 'utilities/developer';    // developer-friendly file: add rough/WIP styling that needs UI triage
 @import 'utilities/variables';
 @import 'utilities/mixins';
-@import "variables";
 
 // vendor
 // --------------------
@@ -26,7 +25,6 @@
 @import 'components/buttons';
 @import 'components/navbar';
 @import 'components/footer';
-@import 'components/base_navbar';
 
 // views
 // --------------------

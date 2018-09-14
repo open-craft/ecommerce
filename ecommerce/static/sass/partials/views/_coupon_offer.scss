@@ -134,11 +134,10 @@
             .discount-multiple-courses {
                 margin-bottom: 15px;
 
-                .offer-item {
-                   border: 1px solid #ddd;
-                   padding: 10px;
+                .box-shadow {
+                    padding: 10px 0 0 0;
+                    box-shadow: 1px 1px 3px $offer-page-gray;
                 }
-
                 .img-responsive {
                     @media (min-width: $screen-sm-min) {
                         height: 150px;
@@ -165,29 +164,31 @@
                     margin: 0;
                 }
                 .voucher-valid-until {
-                    width: 100%;
-                    background-color: $gray-transparent;
-                    padding: 7px;
-                    text-align: center;
                     font-size: 12px;
+                    position: absolute;
+                    bottom: 0;
+                    background-color: $gray-transparent;
+                    text-align: center;
+                    width: 100%;
 
                     p {
                         margin: 0;
+                        padding: 7px 0;
                     }
                 }
                 .course-price {
-                    @include margin-right(5px);
                     text-align: center;
 
                     span { text-decoration: line-through; }
                 }
                 .course-new-price {
+                    @include margin-left(5px);
                     text-align: center;
                     font-weight: bold;
-                    color: $brand-primary-accent;
+                    color: $offer-page-price-blue;
                 }
                 .course-start {
-                    margin-bottom: 10px;
+                    margin-bottom: 40px;
                     font-size: 1em;
                     line-height: 1.438;
                 }
@@ -196,16 +197,17 @@
                     height: 35px;
                     padding: 5px 5px 0;
                     text-align: center;
-                    color: $brand-primary-accent;
+                    background-color: $offer-page-price-blue;
+                    color: $offer-page-white;
+                    position: absolute;
+                    top: 10px;
+                    text-shadow: 0 1px 1px $dark-blue-shadow;
                     text-transform: uppercase;
                     font-size: 1.25em;
-                    font-weight: bold;
                     line-height: 1.2;
                 }
                 .image-container {
-                    display: flex;
-                    flex-direction: column-reverse;
-                    height: 150px;
+                    position: relative;
                 }
             }
         }

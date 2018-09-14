@@ -13,32 +13,24 @@
 
 .navbar {
   margin-bottom: 0;
-  display: flex;
-  justify-content: center;
-  padding-top: 15px;
 
   // Remove default Bootstrap navbar border styling
   border: none;
   border-radius: 0;
 
-  border-bottom: 3px solid $crimson;
-
   // Add our own border
-  .container {
-    height: 95px;
-  }
+  border-bottom: $navbar-border-bottom-width solid palette(primary, accent);
 
   // Vertically center the logo
-  > .container .navbar-brand {
-    padding: 0;
-    margin: 0;
-
+  .navbar-brand {
     &:active,
     &:focus,
     &:hover {
       border: none;
-      padding: 0;
-      margin: 0;
+    }
+
+    .navbar-brand-logo {
+      @include center-vertically;
     }
 
     .navbar-brand-app {
@@ -53,34 +45,32 @@
 }
 
 .administration-navbar {
-  margin-top: 10px;
   padding: 10px;
+  border-bottom: 2px solid #cacaca;
+
+  background-color: #f6f6f6;
   height: 50px;
 
-  div a {
-    transition: all 0.1s linear 0s;
+  font-size: 18px;
+  font-weight: 600;
 
-    margin-right: 20px;
-    padding: 13px 13px 15px;
+  .container {
+    background-color: #f6f6f6;
+  }
+
+  div a {
+    padding: 10px;
     border-bottom: none;
 
-    color: rgb(140, 129, 121);
-    font-family: "AvenirLTStd-Book", sans-serif;
-    text-transform: uppercase;
+    color: #0ea6ec;
 
     &.selected,
     &:active,
     &:focus,
     &:hover {
-      border-radius: 3px;
-      background-color: rgb(246, 246, 246);
-      color: $brand-secondary-accent;
-      font-weight: bold;
-    }
+      border-bottom: 4px solid #0ea6ec;
 
-    &:hover:not(.selected) {
-      color: #333;
-      font-weight: normal;
+      color: black;
     }
   }
 }
