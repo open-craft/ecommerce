@@ -97,6 +97,7 @@ for section, overrides in LOGGING_SUBSECTION_OVERRIDES.items():
                 LOGGING[section][key] = value
 
 
+OSCAR_DEFAULT_CURRENCY = environ.get('OSCAR_DEFAULT_CURRENCY', OSCAR_DEFAULT_CURRENCY)
 
 # PAYMENT PROCESSOR OVERRIDES
 for __, configs in six.iteritems(PAYMENT_PROCESSOR_CONFIG):
