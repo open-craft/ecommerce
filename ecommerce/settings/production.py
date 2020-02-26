@@ -72,6 +72,7 @@ DB_OVERRIDES = dict(
 for override, value in DB_OVERRIDES.iteritems():
     DATABASES['default'][override] = value
 
+OSCAR_DEFAULT_CURRENCY = environ.get('OSCAR_DEFAULT_CURRENCY', OSCAR_DEFAULT_CURRENCY)
 
 # PAYMENT PROCESSOR OVERRIDES
 for __, configs in PAYMENT_PROCESSOR_CONFIG.iteritems():
