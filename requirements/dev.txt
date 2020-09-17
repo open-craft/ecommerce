@@ -47,6 +47,7 @@ django-extensions==3.1.0  # via -r requirements/test.txt
 django-extra-views==0.11.0  # via -r requirements/test.txt, django-oscar
 django-filter==2.4.0      # via -r requirements/test.txt
 django-haystack==2.8.1    # via -r requirements/test.txt, django-oscar
+django-ipware==2.1.0      # via -r requirements/test.txt
 django-libsass==0.8       # via -r requirements/test.txt
 django-model-utils==4.1.1  # via -r requirements/test.txt, edx-rbac
 django-oscar==2.0.4       # via -r requirements/test.txt

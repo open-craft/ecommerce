@@ -11,6 +11,7 @@ django-cors-headers                 #  Used to allow to configure CORS headers f
 django-crispy-forms<1.9.0
 django_extensions
 django-filter
+django-ipware==2.1.0
 django-libsass
 django-oscar
 django-rest-swagger

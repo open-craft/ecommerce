@@ -40,6 +40,7 @@ django-extensions==3.1.0  # via -r requirements/base.in
 django-extra-views==0.11.0  # via django-oscar
 django-filter==2.4.0      # via -r requirements/base.in
 django-haystack==2.8.1    # via django-oscar
+django-ipware==2.1.0      # via -r requirements/base.in
 django-libsass==0.8       # via -r requirements/base.in
 django-model-utils==4.1.1  # via edx-rbac
 django-oscar==2.0.4       # via -c requirements/pins.txt, -r requirements/base.in
