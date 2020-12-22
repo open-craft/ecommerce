@@ -60,7 +60,6 @@ class PayTabs(BasePaymentProcessor):
             'mailing_address': get_extended_field(account_details, 'mailing_address'),
             'city': get_extended_field(account_details, 'city'),
             'country_code': country_code,
-            'phone_number': get_extended_field(account_details, 'phone_number'),
             'postal_code': get_extended_field(account_details, 'ZIP/Postal Code', '11564'),
             'state': get_extended_field(account_details, 'state'),
         }
@@ -115,7 +114,7 @@ class PayTabs(BasePaymentProcessor):
             'cc_first_name': user_profile_data['first_name'],
             'cc_last_name': user_profile_data['last_name'],
             'cc_phone_number': self.configuration['default_phone_number_country_code'],
-            'phone_number': user_profile_data['phone_number'],
+            'phone_number': 'Phone Number',
             'email': user.email,
             'products_per_title': invoiced_products['names'],
             'unit_price': invoiced_products['prices'],
