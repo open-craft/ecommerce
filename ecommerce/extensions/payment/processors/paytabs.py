@@ -44,7 +44,7 @@ class PayTabs(BasePaymentProcessor):
                     field.get('field_value', default_val) for field in account_details['extended_profile']
                     if field['field_name'] == field_name
                 ),
-               default_val
+                default_val
             )
 
         account_details = user.account_details(request)

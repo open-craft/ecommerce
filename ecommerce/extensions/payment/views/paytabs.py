@@ -27,6 +27,7 @@ NoShippingRequired = get_class('shipping.methods', 'NoShippingRequired')
 
 PAYTABS_SUCCESS_CODES = ['100', '111']
 
+
 class PayTabsResponseView(EdxOrderPlacementMixin, View):
     """
     View to handle the response from PayTabs after processing the payment.
