@@ -2,13 +2,13 @@
 
 import logging
 
+import pycountry
+import requests
 import six
 from django.conf import settings
 from django.urls import reverse
 from django.utils.functional import cached_property
 from ipware import get_client_ip
-import pycountry
-import requests
 from oscar.apps.payment.exceptions import GatewayError
 
 from ecommerce.extensions.payment.processors import BasePaymentProcessor, HandledProcessorResponse

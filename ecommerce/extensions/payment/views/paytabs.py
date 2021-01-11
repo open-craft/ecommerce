@@ -1,17 +1,17 @@
 """PayTabs response processing views."""
 import logging
 
+import requests
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.shortcuts import redirect
-from django.utils.decorators import method_decorator
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from oscar.apps.partner import strategy
 from oscar.core.loading import get_class, get_model
-import requests
 
 from ecommerce.extensions.checkout.mixins import EdxOrderPlacementMixin
 from ecommerce.extensions.checkout.utils import get_receipt_page_url
